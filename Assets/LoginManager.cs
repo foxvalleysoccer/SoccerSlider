@@ -53,7 +53,7 @@ public class LoginManager : MonoBehaviourPunCallbacks
         }
 
         // base.OnConnectedToMaster();
-        PhotonNetwork.LoadLevel("SampleScene");
+        PhotonNetwork.LoadLevel("MatchMaking");
     }
 
     #endregion
