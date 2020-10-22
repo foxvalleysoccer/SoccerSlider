@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
-public class DragAndShoot : MonoBehaviour
+
+public class TapDragAndShoot : MonoBehaviour
 {
     public float power = 10f;
     public Rigidbody2D rb;
@@ -15,25 +15,31 @@ public class DragAndShoot : MonoBehaviour
     Vector3 endPoint;
     public LineDirection lD;
     public GameObject otherplayer;
-    PhotonView PV;
+    public GameObject clickedGo;
+    public GameObject mystar;
     private void Start()
     {
         cam = Camera.main;
         lD = GetComponent<LineDirection>();
-       // PV = GetComponent<PhotonView>();
+
+        // PV = GetComponent<PhotonView>();
     }
 
     private void Update()
     {
-    //if (!IsMine)
-    //        return;
+        //if (!IsMine)
+        //        return;
 
-        GameObject clickedGo;
+
         if (Input.GetMouseButtonDown(0))
         {
-           // clickedGo = GetObjectClickedOn();
+            clickedGo = GetObjectClickedOn();
+            mystar.SetActive(false);
         }
-    
+        if (this.gameObject.name != clickedGo.name)
+        {
+            return;
+        }
         if (Input.GetMouseButton(0))
         {
             Vector3 currentPoint = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -62,9 +68,13 @@ public class DragAndShoot : MonoBehaviour
         if (hit.collider != null)
         {
             Debug.Log(hit.collider.gameObject.name);
-
+            return hit.transform.gameObject;
         }
-        return hit.transform.gameObject;
+        else
+        {
+            return clickedGo;
+        }
+
     }
     public bool IsMine;
     public void OnClickonMySelf()

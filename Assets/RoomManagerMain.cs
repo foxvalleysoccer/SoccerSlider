@@ -84,7 +84,7 @@ public class RoomManagerMain : MonoBehaviourPunCallbacks
                 Debug.Log("Joined room with map: " + (string)mapType);
                 if ((string)mapType == MultiPlayerVRConstrants.MAP_TYPE_VALUE_MultiPlayer)
                 {
-                    PhotonNetwork.LoadLevel("SampleScene");
+                    PhotonNetwork.LoadLevel("SoccerSliders");
 
                 }
            

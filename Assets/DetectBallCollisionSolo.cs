@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using Photon.Pun;
 
-public class DetectBallCollision : MonoBehaviour
+public class DetectBallCollisionSolo : MonoBehaviour
 {
     public TextMeshProUGUI player1Text;
     public TextMeshProUGUI player2Text;
     public int player1Score;
     public int player2Score;
-    PhotonView PV;
+    //PhotonView PV;
     Transform startingSpot;
     public void Start()
     {
         startingSpot = gameObject.transform;
-        PV = this.gameObject.GetComponent<PhotonView>();
+        // PV = this.gameObject.GetComponent<PhotonView>();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -23,19 +22,19 @@ public class DetectBallCollision : MonoBehaviour
         {
             player1Score++;
             Debug.Log(collision.gameObject.name);
-            PV.RPC("SetBallPosition", RpcTarget.AllBuffered, startingSpot);
-            PV.RPC("SetScores", RpcTarget.AllBuffered, player1Score, player2Score);
+            //  PV.RPC("SetBallPosition", RpcTarget.AllBuffered, startingSpot);
+            //  PV.RPC("SetScores", RpcTarget.AllBuffered, player1Score, player2Score);
         }
         else if (collision.gameObject.name == "Goal_B")
         {
             player2Score++;
             Debug.Log(collision.gameObject.name);
-            PV.RPC("SetBallPosition", RpcTarget.AllBuffered, startingSpot);
-            PV.RPC("SetScores", RpcTarget.AllBuffered, player1Score, player2Score);
+            // PV.RPC("SetBallPosition", RpcTarget.AllBuffered, startingSpot);
+            //  PV.RPC("SetScores", RpcTarget.AllBuffered, player1Score, player2Score);
         }
     }
 
-    [PunRPC]
+    // [PunRPC]
     public void SetScores(int player1int, int player2int)
     {
         player1Score = player1int;
@@ -44,7 +43,7 @@ public class DetectBallCollision : MonoBehaviour
         player2Text.text = "Player 2: " + player2Score.ToString();
     }
 
-    [PunRPC]
+    // [PunRPC]
     public void SetBallPosition(Transform ballpos)
     {
         this.gameObject.GetComponent<Rigidbody2D>().simulated = false;
